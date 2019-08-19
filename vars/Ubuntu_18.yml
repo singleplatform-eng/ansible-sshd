@@ -1,11 +1,10 @@
 ---
-sshd_service: ssh
-sshd_packages:
+__sshd_service: ssh
+__sshd_packages:
   - openssh-server
   - openssh-sftp-server
-sshd_config_mode: "0644"
-sshd_defaults:
-  Port: 22
+__sshd_config_mode: "0644"
+__sshd_defaults:
   HostKey:
     - /etc/ssh/ssh_host_ed25519_key
     - /etc/ssh/ssh_host_rsa_key
@@ -22,6 +21,8 @@ sshd_defaults:
   PermitEmptyPasswords: no
   PasswordAuthentication: no
   ChallengeResponseAuthentication: no
+  UsePAM: yes
+  UseDNS: no
   X11Forwarding: no
   X11DisplayOffset: 10
   PrintMotd: no
@@ -29,10 +30,8 @@ sshd_defaults:
   TCPKeepAlive: yes
   AcceptEnv: LANG LC_*
   Subsystem: "sftp {{ sshd_sftp_server }} -f AUTHPRIV -l INFO"
-  UsePAM: yes
-  UseDNS: no
   KexAlgorithms: curve25519-sha256@libssh.org,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256
   Ciphers: chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
   MACs: hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
   AuthenticationMethods: publickey
-sshd_os_supported: yes
+__sshd_os_supported: yes
